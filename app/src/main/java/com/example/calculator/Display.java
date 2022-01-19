@@ -3,8 +3,8 @@ package com.example.calculator;
 import android.widget.TextView;
 
 public class Display {
-    TextView textView;
-    Calculate calculate;
+    final TextView textView;
+    final Calculate calculate;
     String result = "";
     boolean needNewTextView = false;
     int numberOpenBracket = 0;
@@ -17,13 +17,17 @@ public class Display {
     }
 
     public void addDisplayNumber(CharSequence buttonNumberText){
-        if (textView.getText().toString().equals("0") || needNewTextView){
-            textView.clearComposingText();
-            textView.setText("");
+        if (!(textView.getText().charAt(textView.length()-1) == ')')){
+            if (textView.getText().toString().equals("0") || needNewTextView){
+                textView.clearComposingText();
+                textView.setText("");
+            }
+
+            textView.append(buttonNumberText.toString());
+            needNewTextView = false;
+            isLastSymbolNumber = true;
         }
-        textView.append(buttonNumberText.toString());
-        needNewTextView = false;
-        isLastSymbolNumber = true;
+
     }
 
     public void addDisplayOpenBracket(CharSequence operation){
@@ -31,6 +35,8 @@ public class Display {
             numberOpenBracket++;
             textView.append(operation.toString());
             needNewTextView = false;
+
+            isLastSymbolNumber = false;
         }
     }
 
@@ -57,34 +63,38 @@ public class Display {
             needNewTextView = false;
             isLastSymbolNumber = false;
         } else {
+            //проверить предыдущий символ на открывающий символ
+            if (textView.getText().charAt(textView.length()-1) == '('){
+                //добавить 0 между ними
+                textView.append("0");
+                textView.append(operation);
+                return;
+            }
             //вместо предыдущей операции поставим текущую
-            StringBuilder s = new StringBuilder();
-            s.append(textView.getText().subSequence(0, textView.length()-1));
-            s.append(operation);
-            textView.setText(s.toString());
+            String s = String.valueOf(textView.getText().subSequence(0, textView.length() - 1)) +
+                    operation;
+            textView.setText(s);
         }
     }
 
     public void addDisplayResult(){
-        //подсчет открывающих и закрывающих скобок
-            if (numberOpenBracket > numberCloseBracket){
-              textView.setText(addCloseBracket(numberOpenBracket - numberCloseBracket));
-            }
         //проверить что является последним символом число или действие?
-        if (!isLastSymbolNumber){
-            textView.append("0");
+        if (isLastSymbolNumber){
+            //подсчет открывающих и закрывающих скобок
+            if (numberOpenBracket > numberCloseBracket){
+                textView.setText(addCloseBracket(numberOpenBracket - numberCloseBracket));
+            }
+
+            result = calculate.getResult(textView.getText().toString());
+
+            textView.clearComposingText();
+            textView.setText(result);
+            textView.clearComposingText();
+            needNewTextView = true;
+            isLastSymbolNumber = true;
+            numberOpenBracket = 0;
+            numberCloseBracket = 0;
         }
-        result = calculate.getResult(textView.getText().toString());
-
-        textView.clearComposingText();
-        textView.setText(result);
-        textView.clearComposingText();
-        needNewTextView = true;
-        isLastSymbolNumber = true;
-        numberOpenBracket = 0;
-        numberCloseBracket = 0;
-
-
     }
 
     //добавление недостающих закрывающих скобок

@@ -3,10 +3,9 @@ package com.example.calculator;
 import java.util.Stack;
 
 /**
- *  производит вычисление выражения переданного в строке
+ *  производит вычисление выражения переданного в строке getResult(String)
  * */
 public class Calculate {
-
 
     public String getResult(String expression){
         if (expression.isEmpty()){
@@ -15,7 +14,7 @@ public class Calculate {
             return String.valueOf(calc(revPolNot(expression)));
         }
     }
-
+    //вычислитель на основе стека для строки выражения в ОПЗ
     double calc(String str){
         StringBuilder stringBuilder = new StringBuilder();
         double calc = 0;
@@ -64,21 +63,25 @@ public class Calculate {
         }
         return calc;
     }
-    String revPolNot(String str){
-        Stack<Character> stack = new Stack<>();
+    //преобразователь строки математического выражения инфиксной форме в
+    //математическое выражение постфиксной записи или ОПЗ
+    String revPolNot(String parsedString){
 
-        StringBuilder stringBuilder = new StringBuilder();
-        char op ;
-        int index = 0;
-        while (index < str.length()){
+        char currentCharOfTheParseString;           //текущий символ разбираемой строки
+        int indexCurrentCharOfTheParseString = 0;   //индекс текущего символа в разбираемой строке
+
+        Stack<Character> stack = new Stack<>();             //стек для операций
+        StringBuilder stringBuilder = new StringBuilder();  //создаваемая строка вывода
+
+        while (indexCurrentCharOfTheParseString < parsedString.length()){
             //считали символ строки
-            op = str.charAt(index);
+            currentCharOfTheParseString = parsedString.charAt(indexCurrentCharOfTheParseString);
             //если это операнд пишем в строку
             //если это оператор пишем в стек
-            switch (op){
+            switch (currentCharOfTheParseString){
                 case '(':{
-                    stringBuilder.append(revPolNot(str.substring(index+1)));
-                    index = str.length();
+                    stringBuilder.append(revPolNot(parsedString.substring(indexCurrentCharOfTheParseString+1)));
+                    indexCurrentCharOfTheParseString = parsedString.length();
                     break;
                 }
                 case ')':{
@@ -86,10 +89,8 @@ public class Calculate {
                         stringBuilder.append(" ");
                         return stringBuilder.append(readStackInString(stack)).toString();
                     }
-
                     break;
                 }
-
                 case '*':
                 case '/': {
                     stringBuilder.append(" ");
@@ -99,7 +100,7 @@ public class Calculate {
                             stringBuilder.append(" ");
                         }
                     }
-                    stack.push(op);
+                    stack.push(currentCharOfTheParseString);
                     break;
                 }
                 case '+':
@@ -109,18 +110,16 @@ public class Calculate {
 //                        readStackInString(stringBuilder, stack);
                         stringBuilder.append(readStackInString(stack));
                     }
-                    stack.push(op);
+                    stack.push(currentCharOfTheParseString);
                     break;
                 }
-
                 default:{
                     //если буква добавляем в строку
-                    stringBuilder.append(op);
+                    stringBuilder.append(currentCharOfTheParseString);
                     break;
                 }
-
             }
-            index++;
+            indexCurrentCharOfTheParseString++;
         }
         //опустошаем стек
         stringBuilder.append(" ");
@@ -129,17 +128,18 @@ public class Calculate {
         return stringBuilder.toString();
     }
 
+    //поднятие стека, вывод в виде строки
     String readStackInString(Stack<Character> stack){
-        StringBuilder s = new StringBuilder("");
+
+        StringBuilder s = new StringBuilder();
+
         if (stack.empty()) return s.toString();
 
         while (stack.size()!=0){
             s.append(stack.pop());
-
             s.append(" ");
         }
+
         return s.toString();
     }
-
-
 }

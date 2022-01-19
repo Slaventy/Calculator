@@ -31,12 +31,13 @@ public class MainActivity extends AppCompatActivity {
         Button button_8 = findViewById(R.id.button_8);
         Button button_9 = findViewById(R.id.button_9);
         Button button_0 = findViewById(R.id.button_0);
+
         Button button_AC = findViewById(R.id.button_AC);
         Button button_plus = findViewById(R.id.button_plus);
         Button button_minus = findViewById(R.id.button_minus);
-        Button button_multiply = findViewById(R.id.button_multiply);
-        Button button_divide = findViewById(R.id.button_divide);
         Button button_result = findViewById(R.id.button_result);
+        Button button_divide = findViewById(R.id.button_divide);
+        Button button_multiply = findViewById(R.id.button_multiply);
         Button button_bracketOpen = findViewById(R.id.button_bracketOpen);
         Button button_bracketClose = findViewById(R.id.button_bracketClose);
 
