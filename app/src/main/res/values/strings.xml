@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Calculator</string>
-    <string name="Button_1">1</string>
+    <string name="button_1">1</string>
     <string name="button_2">2</string>
     <string name="button_3">3</string>
     <string name="button_4">4</string>
@@ -12,9 +12,16 @@
     <string name="button_0">0</string>
     <string name="button_result">=</string>
     <string name="button_plus">+</string>
-    <string name="Button_AC">AC</string>
+    <string name="button_AC">AC</string>
     <string name="button_minus">-</string>
     <string name="button_multiply">*</string>
     <string name="button_divide">/</string>
     <string name="button_dot">.</string>
+    <string name="button_inversion">+/-</string>
+    <string name="button_C">C</string>
+    <string name="button_SQR">√</string>
+    <string name="button_bracketOpen">(</string>
+    <string name="button_bracketClose">)</string>
+    <string name="button_empty"> </string>
+    <string name="firstDisplayNumber">0</string>
 </resources>

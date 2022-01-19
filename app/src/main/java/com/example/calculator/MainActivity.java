@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         TextView textViewPole = findViewById(R.id.textPole);
         Display display = new Display(textViewPole);
 
-
         Button button_1 = findViewById(R.id.button_1);
         Button button_2 = findViewById(R.id.button_2);
         Button button_3 = findViewById(R.id.button_3);
@@ -38,21 +37,31 @@ public class MainActivity extends AppCompatActivity {
         Button button_multiply = findViewById(R.id.button_multiply);
         Button button_divide = findViewById(R.id.button_divide);
         Button button_result = findViewById(R.id.button_result);
-        button_1.setOnClickListener(new ButtonClickHendler(display, button_1, false));
-        button_2.setOnClickListener(new ButtonClickHendler(display, button_2, false));
-        button_3.setOnClickListener(new ButtonClickHendler(display, button_3, false));
-        button_4.setOnClickListener(new ButtonClickHendler(display, button_4, false));
-        button_5.setOnClickListener(new ButtonClickHendler(display, button_5, false));
-        button_6.setOnClickListener(new ButtonClickHendler(display, button_6, false));
-        button_7.setOnClickListener(new ButtonClickHendler(display, button_7, false));
-        button_8.setOnClickListener(new ButtonClickHendler(display, button_8, false));
-        button_9.setOnClickListener(new ButtonClickHendler(display, button_9, false));
-        button_0.setOnClickListener(new ButtonClickHendler(display, button_0, false));
-        button_plus.setOnClickListener(new ButtonClickHendler(display, button_plus, true));
-        button_result.setOnClickListener(new ButtonClickHendler(display, button_result, true));
-        button_AC.setOnClickListener(new ButtonClickHendler(display, button_AC, false));
-        button_minus.setOnClickListener(new ButtonClickHendler(display, button_minus, true));
-        button_multiply.setOnClickListener(new ButtonClickHendler(display, button_multiply, true));
-        button_divide.setOnClickListener(new ButtonClickHendler(display, button_divide, true));
+        Button button_bracketOpen = findViewById(R.id.button_bracketOpen);
+        Button button_bracketClose = findViewById(R.id.button_bracketClose);
+
+        button_0.setOnClickListener(v -> display.addDisplayNumber(button_0.getText()));
+        button_1.setOnClickListener(v -> display.addDisplayNumber(button_1.getText()));
+        button_2.setOnClickListener(v -> display.addDisplayNumber(button_2.getText()));
+        button_3.setOnClickListener(v -> display.addDisplayNumber(button_3.getText()));
+        button_4.setOnClickListener(v -> display.addDisplayNumber(button_4.getText()));
+        button_5.setOnClickListener(v -> display.addDisplayNumber(button_5.getText()));
+        button_6.setOnClickListener(v -> display.addDisplayNumber(button_6.getText()));
+        button_7.setOnClickListener(v -> display.addDisplayNumber(button_7.getText()));
+        button_8.setOnClickListener(v -> display.addDisplayNumber(button_8.getText()));
+        button_9.setOnClickListener(v -> display.addDisplayNumber(button_9.getText()));
+
+        button_plus.setOnClickListener(v -> display.addDisplayOperation(button_plus.getText()));
+        button_minus.setOnClickListener(v -> display.addDisplayOperation(button_minus.getText()));
+
+        button_multiply.setOnClickListener(v -> display.addDisplayOperation(button_multiply.getText()));
+        button_divide.setOnClickListener(v -> display.addDisplayOperation(button_divide.getText()));
+
+        button_bracketOpen.setOnClickListener(v -> display.addDisplayOpenBracket(button_bracketOpen.getText()));
+        button_bracketClose.setOnClickListener(v -> display.addDisplayCloseBracket(button_bracketClose.getText()));
+
+        button_result.setOnClickListener(v -> display.addDisplayResult());
+
+        button_AC.setOnClickListener(v -> display.clearDisplay());
     }
 }

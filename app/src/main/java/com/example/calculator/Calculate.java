@@ -8,8 +8,12 @@ import java.util.Stack;
 public class Calculate {
 
 
-    public Double getResult(String expression){
-        return calc(revPolNot(expression));
+    public String getResult(String expression){
+        if (expression.isEmpty()){
+            return "0";
+        }else {
+            return String.valueOf(calc(revPolNot(expression)));
+        }
     }
 
     double calc(String str){
@@ -62,16 +66,30 @@ public class Calculate {
     }
     String revPolNot(String str){
         Stack<Character> stack = new Stack<>();
-        int index = 0;
+
         StringBuilder stringBuilder = new StringBuilder();
         char op ;
-
+        int index = 0;
         while (index < str.length()){
             //считали символ строки
             op = str.charAt(index);
             //если это операнд пишем в строку
             //если это оператор пишем в стек
             switch (op){
+                case '(':{
+                    stringBuilder.append(revPolNot(str.substring(index+1)));
+                    index = str.length();
+                    break;
+                }
+                case ')':{
+                    if (!stack.isEmpty()){
+                        stringBuilder.append(" ");
+                        return stringBuilder.append(readStackInString(stack)).toString();
+                    }
+
+                    break;
+                }
+
                 case '*':
                 case '/': {
                     stringBuilder.append(" ");
@@ -88,11 +106,13 @@ public class Calculate {
                 case '-': {
                     stringBuilder.append(" ");
                     if (!stack.isEmpty()){
-                        readStackInString(stringBuilder, stack);
+//                        readStackInString(stringBuilder, stack);
+                        stringBuilder.append(readStackInString(stack));
                     }
                     stack.push(op);
                     break;
                 }
+
                 default:{
                     //если буква добавляем в строку
                     stringBuilder.append(op);
@@ -104,16 +124,21 @@ public class Calculate {
         }
         //опустошаем стек
         stringBuilder.append(" ");
-        readStackInString(stringBuilder, stack);
+        stringBuilder.append(readStackInString(stack));
 
         return stringBuilder.toString();
     }
-    void readStackInString(StringBuilder stringBuilder, Stack<Character> stack){
-        if (stack.empty()) return;
+
+    String readStackInString(Stack<Character> stack){
+        StringBuilder s = new StringBuilder("");
+        if (stack.empty()) return s.toString();
+
         while (stack.size()!=0){
-            stringBuilder.append(stack.pop());
-            stringBuilder.append(" ");
+            s.append(stack.pop());
+
+            s.append(" ");
         }
+        return s.toString();
     }
 
 
