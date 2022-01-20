@@ -61,6 +61,9 @@ public class Calculate {
 
             index++;
         }
+        if (!stack.empty()){
+            calc = stack.pop();
+        }
         return calc;
     }
     //преобразователь строки математического выражения инфиксной форме в

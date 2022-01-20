@@ -1,7 +1,18 @@
 package com.example.calculator;
 
 import android.widget.TextView;
-
+/**
+ * при наборе не видно что пишется за границей поля ввода
+ * большие числа вылезают за поле
+ * как удалить символ?
+ *
+ * корень не работает
+ * +/- не работает
+ * точка не работает
+ * при наборе не видно что пишется за границей поля ввода
+ *
+ *
+ * */
 public class Display {
     final TextView textView;
     final Calculate calculate;
@@ -85,9 +96,10 @@ public class Display {
                 if (numberOpenBracket > numberCloseBracket){
                     textView.setText(addCloseBracket(numberOpenBracket - numberCloseBracket));
                 }
-
+                //результат расчета
                 result = calculate.getResult(textView.getText().toString());
 
+                //очистка дисплея и вывод результата
                 textView.clearComposingText();
                 textView.setText(result);
                 textView.clearComposingText();
@@ -99,6 +111,7 @@ public class Display {
             textView.clearComposingText();
 
         }finally {
+            //начальные настройки
             needNewTextView = true;
             isLastSymbolNumber = true;
             numberOpenBracket = 0;
