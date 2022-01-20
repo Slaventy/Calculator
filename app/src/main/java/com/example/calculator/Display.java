@@ -78,23 +78,33 @@ public class Display {
     }
 
     public void addDisplayResult(){
-        //проверить что является последним символом число или действие?
-        if (isLastSymbolNumber){
-            //подсчет открывающих и закрывающих скобок
-            if (numberOpenBracket > numberCloseBracket){
-                textView.setText(addCloseBracket(numberOpenBracket - numberCloseBracket));
+        try {
+            //проверить что является последним символом число или действие?
+            if (isLastSymbolNumber){
+                //подсчет открывающих и закрывающих скобок
+                if (numberOpenBracket > numberCloseBracket){
+                    textView.setText(addCloseBracket(numberOpenBracket - numberCloseBracket));
+                }
+
+                result = calculate.getResult(textView.getText().toString());
+
+                textView.clearComposingText();
+                textView.setText(result);
+                textView.clearComposingText();
+
             }
-
-            result = calculate.getResult(textView.getText().toString());
-
+        }catch (Exception exception){
             textView.clearComposingText();
-            textView.setText(result);
+            textView.setText(R.string.Error);
             textView.clearComposingText();
+
+        }finally {
             needNewTextView = true;
             isLastSymbolNumber = true;
             numberOpenBracket = 0;
             numberCloseBracket = 0;
         }
+
     }
 
     //добавление недостающих закрывающих скобок
