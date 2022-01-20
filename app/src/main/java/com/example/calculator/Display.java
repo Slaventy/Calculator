@@ -5,23 +5,20 @@ import android.widget.TextView;
  * при наборе не видно что пишется за границей поля ввода
  * большие числа вылезают за поле
  * как удалить символ?
- *
  * корень не работает
  * +/- не работает
- * точка не работает
  * при наборе не видно что пишется за границей поля ввода
- *
  *
  * */
 public class Display {
     final TextView textView;
     final Calculate calculate;
-    String result = "";
     boolean needNewTextView = false;
     int numberOpenBracket = 0;
     int numberCloseBracket = 0;
     boolean isLastSymbolNumber = true;
     boolean isMoreDot = true;
+    String afterPushResultDisplay = "";
 
     Display(TextView textView){
         this.textView = textView;
@@ -39,6 +36,10 @@ public class Display {
             needNewTextView = false;
             isLastSymbolNumber = true;
         }
+
+    }
+
+    public void addDisplayInversionNumber(CharSequence operator){
 
     }
 
@@ -83,7 +84,7 @@ public class Display {
     }
     public void addDisplayOperation(CharSequence operation){
         if (needNewTextView){
-            textView.setText("0");
+            clearDisplayAfterOperation();
         }
         //если последний символ число
         if (isLastSymbolNumber) {
@@ -116,11 +117,11 @@ public class Display {
                     textView.setText(addCloseBracket(numberOpenBracket - numberCloseBracket));
                 }
                 //результат расчета
-                result = calculate.getResult(textView.getText().toString());
+                afterPushResultDisplay = calculate.getResult(textView.getText().toString());
 
                 //очистка дисплея и вывод результата
                 textView.clearComposingText();
-                textView.setText(result);
+                textView.setText(afterPushResultDisplay);
                 textView.clearComposingText();
 
             }
@@ -135,7 +136,7 @@ public class Display {
             isLastSymbolNumber = true;
             numberOpenBracket = 0;
             numberCloseBracket = 0;
-            isMoreDot = true;
+            isMoreDot = false;
         }
 
     }
@@ -150,6 +151,12 @@ public class Display {
         return s.toString();
     }
 
+    public void clearDisplayAfterOperation(){
+        clearDisplay();
+        textView.setText(afterPushResultDisplay);
+        isMoreDot = false;
+    }
+
     //очистка дисплея ввода
     public void clearDisplay(){
         textView.clearComposingText();
@@ -157,5 +164,7 @@ public class Display {
         isLastSymbolNumber = true;
         numberOpenBracket = 0;
         numberCloseBracket = 0;
+        isMoreDot = true;
+
     }
 }
