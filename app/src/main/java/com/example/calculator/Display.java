@@ -51,6 +51,13 @@ public class Display {
         }
     }
 
+    public void addDisplayDot(CharSequence operator){
+        if (isLastSymbolNumber){
+            textView.append(operator.toString());
+            isLastSymbolNumber = false;
+        }
+    }
+
     public void addDisplayCloseBracket(CharSequence operation){
         //открытые скобки не больше закрытых
         if (numberOpenBracket > numberCloseBracket){
@@ -67,6 +74,9 @@ public class Display {
 
     }
     public void addDisplayOperation(CharSequence operation){
+        if (needNewTextView){
+            textView.setText("0");
+        }
         //если последний символ число
         if (isLastSymbolNumber) {
             //добавим операцию

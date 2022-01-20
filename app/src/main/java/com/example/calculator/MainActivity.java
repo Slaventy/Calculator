@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         Button button_multiply = findViewById(R.id.button_multiply);
         Button button_bracketOpen = findViewById(R.id.button_bracketOpen);
         Button button_bracketClose = findViewById(R.id.button_bracketClose);
+        Button button_dot = findViewById(R.id.button_dot);
 
         button_0.setOnClickListener(v -> display.addDisplayNumber(button_0.getText()));
         button_1.setOnClickListener(v -> display.addDisplayNumber(button_1.getText()));
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
         button_multiply.setOnClickListener(v -> display.addDisplayOperation(button_multiply.getText()));
         button_divide.setOnClickListener(v -> display.addDisplayOperation(button_divide.getText()));
+
+        button_dot.setOnClickListener(v -> display.addDisplayDot(button_dot.getText()));
 
         button_bracketOpen.setOnClickListener(v -> display.addDisplayOpenBracket(button_bracketOpen.getText()));
         button_bracketClose.setOnClickListener(v -> display.addDisplayCloseBracket(button_bracketClose.getText()));
