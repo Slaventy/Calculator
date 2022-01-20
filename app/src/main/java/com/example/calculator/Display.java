@@ -21,6 +21,7 @@ public class Display {
     int numberOpenBracket = 0;
     int numberCloseBracket = 0;
     boolean isLastSymbolNumber = true;
+    boolean isMoreDot = true;
 
     Display(TextView textView){
         this.textView = textView;
@@ -48,14 +49,20 @@ public class Display {
             needNewTextView = false;
 
             isLastSymbolNumber = false;
+            //|||||||||||||||||||||||||||||||||||||||
+            isMoreDot = true;
         }
     }
 
     public void addDisplayDot(CharSequence operator){
-        if (isLastSymbolNumber){
-            textView.append(operator.toString());
-            isLastSymbolNumber = false;
+        if (isMoreDot){
+            if (isLastSymbolNumber){
+                textView.append(operator.toString());
+                isLastSymbolNumber = false;
+                isMoreDot = false;
+            }
         }
+
     }
 
     public void addDisplayCloseBracket(CharSequence operation){
@@ -71,7 +78,8 @@ public class Display {
             needNewTextView = false;
             isLastSymbolNumber = true;
         }
-
+        //||||||||||||||||||||||||||||||||||||||||||
+        isMoreDot = true;
     }
     public void addDisplayOperation(CharSequence operation){
         if (needNewTextView){
@@ -96,6 +104,7 @@ public class Display {
                     operation;
             textView.setText(s);
         }
+        isMoreDot = true;
     }
 
     public void addDisplayResult(){
@@ -126,6 +135,7 @@ public class Display {
             isLastSymbolNumber = true;
             numberOpenBracket = 0;
             numberCloseBracket = 0;
+            isMoreDot = true;
         }
 
     }
