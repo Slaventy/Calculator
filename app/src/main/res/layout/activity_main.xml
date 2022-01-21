@@ -38,10 +38,10 @@
         app:layout_constraintTop_toTopOf="@+id/button_plus" />
 
     <Button
-        android:id="@+id/button_divide6"
+        android:id="@+id/button_backspace"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:text="@string/button_empty"
+        android:text="@string/button_backspace"
         app:layout_constraintBottom_toBottomOf="@+id/button_result"
         app:layout_constraintEnd_toEndOf="@+id/button_divide5"
         app:layout_constraintStart_toStartOf="@+id/button_divide5"

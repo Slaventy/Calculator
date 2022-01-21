@@ -157,6 +157,16 @@ public class Display {
         isMoreDot = false;
     }
 
+    public void backspace(){
+        if (textView.length() > 1){
+            String s = textView.getText().subSequence(0, textView.length()-1).toString();
+            textView.setText(s);
+        }else {
+            clearDisplay();
+        }
+
+    }
+
     //очистка дисплея ввода
     public void clearDisplay(){
         textView.clearComposingText();

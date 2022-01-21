@@ -25,4 +25,5 @@
     <string name="button_empty"> </string>
     <string name="firstDisplayNumber">0</string>
     <string name="Error">Error</string>
+    <string name="button_backspace"><![CDATA[<<]]></string>
 </resources>
